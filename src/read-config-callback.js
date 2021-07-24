@@ -23,6 +23,7 @@ readConfig(
   "photos.txt",
   (contents) => {
     console.log(`The config contents are "${contents}"`);
+    // Execute additoinal callbacks here
   },
   (err) => {
     console.error(`The configuration file could not be read:`, err);
