@@ -1,6 +1,7 @@
-// src/read-config-promise.js
+// src/call-api-callback.js
 const fs = require("fs");
 const path = require("path");
+const superagent = require("superagent");
 
 /**
  * @param {string} filename - File name in the `config/` directory
@@ -21,8 +22,11 @@ function readConfig(filename) {
 
 readConfig("photos.txt")
   .then((contents) => {
-    console.log(`The config contents are "${contents}"`);
+    return superagent.get(contents);
+  })
+  .then((res) => {
+    console.log(res.body);
   })
   .catch((err) => {
-    console.error(`The configuration file could not be read:`, err);
+    console.error(`An error ocurred:`, err);
   });

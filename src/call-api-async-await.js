@@ -1,6 +1,7 @@
-// src/read-config-promise.js
+// src/call-api-async-await.js
 const fs = require("fs");
 const path = require("path");
+const superagent = require("superagent");
 
 /**
  * @param {string} filename - File name in the `config/` directory
@@ -19,10 +20,12 @@ function readConfig(filename) {
   });
 }
 
-readConfig("photos.txt")
-  .then((contents) => {
-    console.log(`The config contents are "${contents}"`);
-  })
-  .catch((err) => {
-    console.error(`The configuration file could not be read:`, err);
-  });
+(async () => {
+  try {
+    const contents = await readConfig("photos.txt");
+    const res = await superagent.get(contents);
+    console.log(res.body);
+  } catch (err) {
+    console.log("An error ocurred", err);
+  }
+})();
